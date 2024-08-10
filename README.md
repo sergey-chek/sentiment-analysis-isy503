@@ -12,8 +12,8 @@ Before you begin, make sure you have the following installed:
 
 **1. Clone the repository:**
 ```bash
-git clone https://github.com/yourusername/your-repo-name.git
-cd your-repo-name
+git clone https://github.com/sergey-chek/sentiment-analysis-isy503.git
+cd sentiment-analysis-isy503
 ```
 
 **2. Create a virtual environment:**
