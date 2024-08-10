@@ -39,7 +39,7 @@ The following command will start the FastAPI server on `http://127.0.0.1:8000/` 
 uvicorn main:app --reload
 ```
 > [!NOTE]
-> If you use a different port for the server, make sure to update the API_ENDPOINT variable in `static/script.js` to match the correct port.
+> If you use a different port for the server, make sure to update the `API_ENDPOINT` variable in `static/script.js` to match the correct port.
 
 **2. Access the frontend**
 
