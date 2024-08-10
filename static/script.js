@@ -73,7 +73,6 @@ async function analyzeSentiment() {
             sentiment: result,
         };
         checkedReviews.push(checkedReview);
-        console.log(checkedReviews);
 
     } catch (error) {
         console.error('Error:', error);
