@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISY503 Intelligent Systems - Final Project</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="static/style.css" rel="stylesheet">
+    <script src="static/script.js" defer></script>
+</head>
+<body class="bg-gray-900 text-gray-200 p-10 flex flex-col min-h-screen">
+    <header class="mb-6 text-center">
+        <h1 class="text-2xl font-bold">ISY503 Intelligent Systems</h1>
+        <h2 class="text-xl font-semibold">A3 Assessment - Final Project</h2>
+    </header>
+    <main class="flex-grow">
+        <div class="max-w-5xl mx-auto bg-gray-800 p-8 rounded-xl shadow-lg">
+            <p class="text-gray-400 mb-6 text-left">Enter a product review in the text box below and click "Analyse" to determine the sentiment.</p>
+            <div class="mb-6">
+                <textarea id="review" class="w-full p-3 border border-gray-600 rounded-lg bg-gray-700 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-600 disabled:cursor-not-allowed" placeholder="Enter your review here"></textarea>
+            </div>
+            <div class="text-center">
+                <div id="positiveBlock" class="p-4 rounded-xl text-gray-900 font-semibold hidden">Positive Sentiment</div>
+                <div id="negativeBlock" class="p-4 rounded-xl text-gray-900 font-semibold hidden">Negative Sentiment</div>
+                <div id="neutralBlock" class="p-4 rounded-xl text-gray-900 font-semibold hidden">Neutral Sentiment</div>
+            </div>
+            <div class="flex justify-center mt-7">
+                <button id="analyzeButton" onclick="analyzeSentiment()" class="bg-blue-600 text-white px-12 py-3 rounded-lg hover:bg-blue-700 disabled:opacity-50 mx-2">Analyse</button>
+                <button id="nextReviewButton" onclick="resetForm()" class="bg-blue-600 text-white px-14 py-3 rounded-lg hover:bg-blue-700 hidden mx-2">Check Next Review</button>
+            </div>
+        </div>
+        <div id="reviewsBlock" class="flex-grow mt-6 text-center hidden">
+            <div class="max-w-5xl mx-auto bg-gray-800 p-8 rounded-xl">
+                <h3 class="text-lg font-semibold text-gray-400 mb-4">Checked Reviews</h3>
+                <div id="reviewsTable" class="bg-gray-800 p-4 rounded-xl">
+                    <!-- Dynamically generated table of checked reviews -->
+                </div>
+                <div class="flex justify-center mt-4"></div>
+                    <button id="clearReviewsButton" onclick="clearReviews()" class="bg-gray-600 text-white px-12 py-3 rounded-lg hover:bg-gray-700">Clear Checked Reviews</button>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="flex-grow text-center mt-6">
+        <div class="max-w-5xl mx-auto bg-gray-800 p-8 rounded-xl shadow-lg">
+            <h3 class="text-lg font-semibold text-gray-400 mb-4">Group Members</h3>
+            <ul class="list-none">
+                <li><a href="mailto:vladimir.erofeev@student.torrens.edu.au">Vladimir Erofeev</a></li>
+                <li><a href="mailto:sergey.chekurin@student.torrens.edu.au">Sergey Chekurin</a></li>            
+            </ul>
+        </div>
+        <div class="flex justify-center mt-6">
+            <img src="/static/torrens-logo.png" class="h-16 filter brightness-50">
+        </div>
+    </footer>
+    <!-- Modal Window ------------------------------->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <p class="text-gray-200 mb-4">Please enter a review before analysing sentiment.</p>
+            <button onclick="closeModal()" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">OK</button>
+        </div>
+    </div>
+    <!-- End of Modal Window ------------------------>
+</body>
+</html>

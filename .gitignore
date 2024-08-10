@@ -1,0 +1,26 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# IDE files
+.vscode/
+.idea/
+
+# Dependency directories
+venv/
+env/
+env.bak/
+
+# Compiled Python files
+*.pyc
+*.pyo
+*.pyd
+
+# Logs and temporary files
+*.log
+*.swp
+*.swo
+*.tmp
+*.bak
+*.cache
