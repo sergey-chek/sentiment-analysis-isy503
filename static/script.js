@@ -32,7 +32,11 @@ async function analyzeSentiment() {
     reviewTextarea.disabled = true;
     reviewTextarea.classList.add('disabled-textarea');
 
+
     try {
+        // add loading spinner
+        analyzeButton.innerHTML = `<div class="w-60 spinner"></div>Analyzing...`;
+
         const response = await fetch(API_ENDPOINT, {
             method: 'POST',
             headers: {
@@ -62,6 +66,7 @@ async function analyzeSentiment() {
                 break;
         }
 
+        analyzeButton.innerHTML = 'Analyze';
         analyzeButton.classList.add('hidden');
         nextReviewButton.classList.remove('hidden');
 
@@ -77,6 +82,7 @@ async function analyzeSentiment() {
     } catch (error) {
         console.error('Error:', error);
         alert('An error occurred while analyzing sentiment. Please try again later.');
+        analyzeButton.innerHTML = 'Analyze';
         analyzeButton.disabled = false;
         reviewTextarea.disabled = false;
         reviewTextarea.classList.remove('disabled-textarea');

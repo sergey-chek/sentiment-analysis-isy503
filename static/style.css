@@ -37,3 +37,13 @@
     text-align: center;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+.spinner {
+    border: 0.25rem solid #f3f4f6;
+    border-top: 0.25rem solid #1f2937;
+    border-radius: 50%;
+    width: 1rem;
+    height: 1rem;
+    animation: spin 1s linear infinite;
+    display: inline-block;
+    margin-right: 0.5rem;
+}
