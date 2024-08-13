@@ -20,7 +20,7 @@ cd sentiment-analysis-isy503
 
 ### 2. Create a virtual environment:
 ```bash
-python -m venv venv
+python3 -m venv venv
 ```
 
 ### 3. Activate the virtual environment:
@@ -38,7 +38,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-## Running the Application
+## Running the Web Application
 
 ### 1. Start the FastAPI server using Uvicorn:
 
@@ -52,6 +52,22 @@ uvicorn main:app --reload
 ### 2. Access the frontend
 
 Open your web browser and navigate to `http://127.0.0.1:8000/` (or to your custom endpoint).
+
+## Building Model
+1. Ensure that the training data files are placed in the `model/import-labeled-data` folder.
+2. To prepare a combined .csv file and perform spelling correction, run the `model.prepare` module using command:
+```bash
+python3 -m model.prepare
+```
+3. For subsequent data cleaning, run the `model.clean` module using command:
+```bash
+python3 -m model.clean
+```
+4. For model training, run the `model.train` module using command:
+```bash
+python3 -m model.train
+```
+The trained model will be saved in the `model/trained-model` directory.
 
 ## License
 
