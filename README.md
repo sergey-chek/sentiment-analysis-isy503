@@ -22,6 +22,10 @@ cd sentiment-analysis-isy503
 ```bash
 python3 -m venv venv
 ```
+In some cases it could be 
+```bash
+python -m venv venv
+```
 
 ### 3. Activate the virtual environment:
 **- Windows:**
