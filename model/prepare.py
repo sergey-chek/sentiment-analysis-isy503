@@ -8,15 +8,7 @@ from autocorrect import Speller
 input_folder = 'model/import-labeled-data'
 output_folder = 'model/export-labeled-data'
 
-def process_review_file(input_file, output_file):
-    # Determine the type based on the input file name
-    if 'positive' in input_file:
-        review_type = 1
-    elif 'negative' in input_file:
-        review_type = 0
-    else:
-        raise ValueError("Input file name must contain 'positive' or 'negative'.")
-    
+def process_review_file(input_file, output_file): 
     # Open the file and read the data
     with open(input_file, 'r', encoding='utf-8') as file:
         data = file.read()
@@ -43,11 +35,16 @@ def process_review_file(input_file, output_file):
                 match = re.search(pattern, review, re.DOTALL)
                 review_dict[header] = match.group(1).strip() if match else ''
 
-            # Add the type field
-            review_dict['type'] = review_type
+            # Determine the type based on the rating
+            if float(review_dict['rating']) >= 4:
+                review_dict['type'] = 1
+            elif float(review_dict['rating']) <= 2:
+                review_dict['type'] = 0
 
-            # Write the row to the CSV
-            writer.writerow(review_dict)
+            # Check if the rating is within the specified intervals
+            if float(review_dict['rating']) >= 4 or float(review_dict['rating']) <= 2:
+                # Write the row to the CSV
+                writer.writerow(review_dict)
 
     print(f"CSV file '{output_file}' created successfully.")
 
