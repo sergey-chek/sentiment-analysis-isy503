@@ -9,12 +9,43 @@ from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
 from sklearn.model_selection import train_test_split
 from tensorflow.keras.optimizers import AdamW
 import os
+import requests
+from zipfile import ZipFile
 
 # Set paths to custom word lists and data
 word_lists_path = 'model/word-lists/'
 stopwords_path = os.path.join(word_lists_path, 'stopwords.csv')
 negative_words_path = os.path.join(word_lists_path, 'negative-words.csv')
 positive_words_path = os.path.join(word_lists_path, 'positive-words.csv')
+
+# Download and extract Glove embeddings file
+glove_dir = 'model/word-lists/'
+glove_filename = 'glove.6B.100d.txt'
+glove_zip_url = 'http://nlp.stanford.edu/data/glove.6B.zip'
+glove_zip_path = os.path.join(glove_dir, 'glove.6B.zip')
+
+# Ensure that Glove embeddings downloaded and available
+if not os.path.exists(os.path.join(glove_dir, glove_filename)):
+    # Download GloVe zip file
+    print("Downloading GloVe embeddings...")
+    response = requests.get(glove_zip_url, stream=True)
+    # Show progress bar
+    total_size = int(response.headers.get('content-length', 0))
+    block_size = 1024
+    downloaded_size = 0
+    with open(glove_zip_path, 'wb') as f:
+        for data in response.iter_content(block_size):
+            downloaded_size += len(data)
+            f.write(data)
+            progress = downloaded_size / total_size * 100
+            print(f"Download progress: {progress:.2f}%", end='\r')
+    print("Download complete.")
+    with ZipFile(glove_zip_path, 'r') as zip_ref:
+        zip_ref.extract(glove_filename, path=glove_dir)
+    # Clean up the zip file
+    os.remove(glove_zip_path)
+    print("GloVe embeddings downloaded and extracted.")
+glove_path = os.path.join(glove_dir, glove_filename)
 
 # Load stopwords from CSV
 custom_stopwords = pd.read_csv(stopwords_path, encoding='latin1')["Word"].tolist()
@@ -53,7 +84,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 
 # Load GloVe embeddings and create an embedding matrix
 embedding_index = {}
-with open(f'{word_lists_path}/glove.6B.100d.txt', encoding='utf-8') as f:
+with open(glove_path, encoding='utf-8') as f:
     for line in f:
         values = line.split()
         word = values[0]
