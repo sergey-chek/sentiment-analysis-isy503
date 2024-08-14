@@ -27,3 +27,7 @@ env.bak/
 
 # Glove embeddings
 glove*.txt
+
+# large binary and csv files
+trained-model-backup*/
+model/export-labeled-data/*
