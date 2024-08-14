@@ -3,7 +3,7 @@ import numpy as np
 
 
 # Output folder path
-output_folder = 'model/export-labeled-data'
+output_folder = 'model/export-data'
 # Load the CSV file from the local path
 data = pd.read_csv(f'{output_folder}/cleaned_reviews.csv', sep=',', encoding='utf8')
 

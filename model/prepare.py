@@ -5,8 +5,8 @@ import pandas as pd
 from autocorrect import Speller
 
 # Input and output folder paths
-input_folder = 'model/import-labeled-data'
-output_folder = 'model/export-labeled-data'
+input_folder = 'model/import-data'
+output_folder = 'model/export-data'
 
 def process_review_file(input_file, output_file): 
     # Open the file and read the data

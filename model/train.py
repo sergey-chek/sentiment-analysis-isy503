@@ -53,7 +53,7 @@ custom_stopwords = pd.read_csv(stopwords_path, encoding='latin1')["Word"].tolist
 positive_words = pd.read_csv(positive_words_path, header=None, encoding='latin1')[0].apply(lambda x: x.split('\t')[0]).tolist()
 negative_words = pd.read_csv(negative_words_path, header=None, encoding='latin1')[0].apply(lambda x: x.split('\t')[0]).tolist()
 # Load and preprocess the dataset
-data_path = 'model/export-labeled-data/cleaned_and_padded_reviews.csv'
+data_path = 'model/export-data/cleaned_and_padded_reviews.csv'
 data = pd.read_csv(data_path)
 
 # Function to remove stopwords from text

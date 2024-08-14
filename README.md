@@ -58,7 +58,7 @@ uvicorn main:app --reload
 Open your web browser and navigate to `http://127.0.0.1:8000/` (or to your custom endpoint).
 
 ## Building Model
-1. Ensure that the training data files are placed in the `model/import-labeled-data` folder.
+1. Ensure that the training data files are placed in the `model/import-data` folder.
 2. To prepare a combined .csv file and perform spelling correction, run the `model.prepare` module using command:
 ```bash
 python3 -m model.prepare
