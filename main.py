@@ -4,6 +4,9 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from typing import Dict
 import os
+import tensorflow as tf
+from tensorflow.keras.preprocessing.sequence import pad_sequences
+import json
 
 app = FastAPI()
 
@@ -19,14 +22,29 @@ async def read_index():
 class Review(BaseModel):
     review: str
 
+# Load the trained model and tokenizer
+model = tf.keras.models.load_model('app-model/sentiment_model_final.keras')
+
+with open('app-model/tokenizer.json') as f:
+    tokenizer_json = f.read()  # Read the file as a string
+    tokenizer = tf.keras.preprocessing.text.tokenizer_from_json(tokenizer_json)
+
+max_length = model.input_shape[1]  # Get max_length from model input shape
+
 def analyze_sentiment(text: str) -> str:
-    # TODO: Replace this logic with an actual ML model
-    if "good" in text.lower():
+    # Preprocess the input text
+    sequence = tokenizer.texts_to_sequences([text])
+    padded_sequence = pad_sequences(sequence, maxlen=max_length, padding='post', truncating='post')
+    
+    # Make a prediction
+    prediction = model.predict(padded_sequence)[0][0]
+    
+    # Determine sentiment based on the prediction
+    if prediction > 0.5:
         return "positive"
-    elif "bad" in text.lower():
-        return "negative"
     else:
-        return "neutral"
+        return "negative"
+
 
 @app.post("/analyse-sentiment")
 async def analyse_sentiment(review: Review) -> Dict[str, str]:
