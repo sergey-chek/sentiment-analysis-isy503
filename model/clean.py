@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import re
 
 
 # Output folder path
@@ -67,6 +68,49 @@ print("Outlier removal using IQR (Interquartile Range)")
 print("Number of rows after IQR removal:", len(data))
 print("Number of rows removed:", len(outliers_iqr))
 print("-----------------------------------------------------")
+
+
+# ------------------------------------------------------------------------------------------------
+#Cleaning the data from punctuation (Need to test it, because it can increase or reduce the overall accuracy of the future model)
+
+def remove_punctuation(text):
+    return re.sub(r'[^\w\s]', '', text)
+
+# Clean 'review_text_correct' column
+data['review_text_correct'] = data['review_text_correct'].apply(remove_punctuation)
+
+
+# ------------------------------------------------------------------------------------------------
+
+#Uses the NLTK library to perform sentiment analysis on text data, identifying and filtering out reviews with
+#nonsensical or spam-like reviews
+
+#If the threshold (compound) is too low (e.g., -0.9): Only a very small number of extremely negative reviews will be detected, 
+# potentially missing less negative but still significant reviews.
+#If the threshold is too high (e.g., 0): More reviews will be detected, including those that may be only slightly negative, 
+# increasing the number of false positives.
+
+import nltk
+nltk.download('vader_lexicon')
+from nltk.sentiment import SentimentIntensityAnalyzer
+
+# Instantiate the sentiment analyzer
+sia = SentimentIntensityAnalyzer()
+
+# Define a function to detect anomalies based on sentiment analysis
+def detect_anomalies(text):
+    # Return True if the sentiment is significantly negative, else False
+    return sia.polarity_scores(text)['compound'] < -0.5
+
+# Filter out reviews identified as anomalies
+filtered_data_nlp = data[~data['review_text_correct'].apply(detect_anomalies)]
+
+# Evaluate the effectiveness of NLP-based anomaly detection
+num_removed_reviews = len(data) - len(filtered_data_nlp)
+print("NLTK NLP-based Anomaly Detection")
+print(f"Number of reviews before filtering: {len(data)}")
+print(f"Number of reviews after filtering: {len(filtered_data_nlp)}")
+
 
 
 # ------------------------------------------------------------------------------------------------
