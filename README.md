@@ -1,4 +1,4 @@
-# ISY503 Intelligent Systems - Project
+# Sentiment Analysis Project
 
 This project involves training a neural network to perform sentiment analysis on a dataset of labeled product reviews, classifying them as positive or negative. The trained model is integrated into a web application for real-time sentiment analysis using FastAPI for the backend and a simple JavaScript page for entering reviews and displaying results.
 
