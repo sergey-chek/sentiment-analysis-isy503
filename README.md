@@ -76,7 +76,3 @@ The trained model will be saved in the `model/trained-model` directory.
 ## License
 
 This project is licensed under the MIT License.
-
-## Acknowledgments
-
-This project was developed as part of the ISY503 Intelligent Systems course at Torrens University of Australia.
